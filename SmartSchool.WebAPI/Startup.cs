@@ -6,12 +6,14 @@ using System;
  using Microsoft.AspNetCore.Hosting;
  using Microsoft.AspNetCore.HttpsPolicy;
  using Microsoft.AspNetCore.Mvc;
- using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
  using Microsoft.Extensions.DependencyInjection;
  using Microsoft.Extensions.Hosting;
  using Microsoft.Extensions.Logging;
- 
- namespace SmartSchool.WebAPI
+using SmartSchool.WebAPI.data;
+
+namespace SmartSchool.WebAPI
  {
      public class Startup
      {
@@ -25,7 +27,11 @@ using System;
          // This method gets called by the runtime. Use this method to add services to the container.
          public void ConfigureServices(IServiceCollection services)
          {
-             services.AddControllers();
+            services.AddDbContext<SmartContext>(
+                context => context.UseSqlite(Configuration.GetConnectionString("Default")) // Conexão com appsetings.json
+            );
+
+            services.AddControllers();
          }
  
          // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
