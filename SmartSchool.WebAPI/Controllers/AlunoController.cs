@@ -15,36 +15,26 @@ namespace SmartSchool.WebAPI.Controllers
 
     public class AlunoController : ControllerBase
     {
-        private readonly SmartContext _context;
+        private readonly IRepository _repo;
 
-        public AlunoController(SmartContext context)
+        public AlunoController(IRepository repo) // Vou receber o IRepository quando chamar o AlunoController, que vai pegar pelo Startup.cs
         {
-            _context = context;
+            _repo = repo;
         }
 
         [HttpGet]
 
           public IActionResult Get() {
 
-            return Ok(_context.Alunos); //_context para referenciar o Alunos
+            var result = _repo.GetAllAlunos(true);
+            return Ok(result);
           }
 
-          // api/aluno/ById/1
-          [HttpGet("byId/{id}")] // Ou [HttpGet("{id: int}")]
+          // api/aluno
+          [HttpGet("{id}")] 
 
           public IActionResult GetById(int id) {
-            var aluno = _context.Alunos.FirstOrDefault(a => a.Id == id);
-            if (aluno == null ) return BadRequest("Aluno não existe");
-
-            return Ok(aluno);
-          }
-
-          // api/aluno/byName?nome=Gustavo&sobrenome=Vieira
-          [HttpGet("byName")]
-
-          public IActionResult GetByName(string Nome, string Sobrenome) {
-            var aluno = _context.Alunos.FirstOrDefault(
-             a => a.Nome.Contains(Nome) && a.Sobrenome.Contains(Sobrenome));
+            var aluno = _repo.GetAlunosById(id);
             if (aluno == null ) return BadRequest("Aluno não existe");
 
             return Ok(aluno);
@@ -54,45 +44,53 @@ namespace SmartSchool.WebAPI.Controllers
 
           public IActionResult Post(Aluno aluno) {
 
-            _context.Add(aluno);
-            _context.SaveChanges();
-            return Ok(aluno);
+            _repo.Add(aluno);
+            if (_repo.SaveChanges()){
+              return Ok(aluno);
+            }
+            return BadRequest("Aluno não cadastrado");
           }
 
           [HttpPut("{id}")]
 
           public IActionResult Put(int id, Aluno aluno) {
             
-            var alu = _context.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id); // Pode dar um erro que a aplicação bloqueia a informação que foi puxada e o AsNoTracking não deixa travar a aplicação.
+            var alu = _repo.GetAlunosById(id);
             if (alu == null ) return BadRequest("Aluno não existe");
             
-            _context.Update(aluno);
-            _context.SaveChanges();
-             return Ok(aluno);
+            _repo.Update(aluno);
+            if (_repo.SaveChanges()){
+              return Ok(aluno);
+            }
+            return BadRequest("Aluno não atualizado");
           }
 
           [HttpPatch("{id}")]
 
           public IActionResult Patch(int id, Aluno aluno) {
             
-            var alu = _context.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
+            var alu = _repo.GetAlunosById(id);
             if (alu == null ) return BadRequest("Aluno não existe");
 
-            _context.Update(aluno);
-            _context.SaveChanges();
-             return Ok(aluno);
+            _repo.Update(aluno);
+            if (_repo.SaveChanges()){
+              return Ok(aluno);
+            }
+            return BadRequest("Aluno não atualizado");
           }
 
           [HttpDelete("{id}")]
 
           public IActionResult Delete(int id) {
             
-            var aluno = _context.Alunos.FirstOrDefault(a => a.Id == id);
-            if (aluno == null ) return BadRequest("Aluno não existe");
+            var alu = _repo.GetAlunosById(id);
+            if (alu == null ) return BadRequest("Aluno não existe");
 
-            _context.Remove(aluno);
-            _context.SaveChanges();
-             return Ok("Aluno Apagado");
+            _repo.Delete(alu);
+            if (_repo.SaveChanges()){
+              return Ok("Aluno apagado");
+            }
+            return BadRequest("Aluno não apagado");
           }
     }
 }

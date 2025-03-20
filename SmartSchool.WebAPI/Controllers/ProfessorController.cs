@@ -15,37 +15,28 @@ namespace SmartSchool.WebAPI.Controllers
 
     public class ProfessorController : ControllerBase
     {
-        private readonly SmartContext _context;
+        private readonly IRepository _repo;
 
-        public ProfessorController(SmartContext context)
+        public ProfessorController( IRepository repo)
         {
-            _context = context;
+             _repo = repo;
         }
 
         [HttpGet]
 
-    public IActionResult Get() {
-
-      return Ok(_context.Professores);
+    public IActionResult Get() 
+    {
+      var result = _repo.GetAllProfessores(true);
+      return Ok(result);
     }
 
-    // api/aluno/ById/1
-    [HttpGet("byId/{id}")] // Ou [HttpGet("{id: int}")]
+    // api/professor
+    [HttpGet("{id}")] 
 
-    public IActionResult GetById(int id) {
-      var professor = _context.Professores.FirstOrDefault(a => a.Id == id);
+    public IActionResult GetById(int id) 
+    {
+      var professor = _repo.GetProfessorById(id, false);
       if (professor == null ) return BadRequest("Professor não existe");
-      return Ok(professor);
-    }
-
-    // api/aluno/byName?nome=Gustavo&sobrenome=Vieira
-    [HttpGet("byName")]
-
-    public IActionResult GetByName(string Nome) {
-      var professor = _context.Professores.FirstOrDefault(
-       a => a.Nome.Contains(Nome));
-      if (professor == null ) return BadRequest("Professor não existe");
-
       return Ok(professor);
     }
 
@@ -53,45 +44,54 @@ namespace SmartSchool.WebAPI.Controllers
 
     public IActionResult Post(Professor professor) {
 
-      _context.Add(professor);
-      _context.SaveChanges();
-      return Ok(professor);
+      _repo.Add(professor);
+      if (_repo.SaveChanges()){
+        return Ok(professor);
+      }
+      return BadRequest("Professor não cadastrado");
     }
 
     [HttpPut("{id}")]
 
     public IActionResult Put(int id, Professor professor) {
             
-      var prof = _context.Professores.AsNoTracking().FirstOrDefault(a => a.Id == id); // Pode dar um erro que a aplicação bloqueia a informação que foi puxada e o AsNoTracking não deixa travar a aplicação.
+      var prof = _repo.GetProfessorById(id, false);
       if (prof == null ) return BadRequest("Professor não existe");
             
-      _context.Update(professor);
-      _context.SaveChanges();
-       return Ok(professor);
+      _repo.Update(professor);
+      if (_repo.SaveChanges())
+      {
+        return Ok(professor);
+      }
+      return BadRequest("Professor não atualizado");
     }
 
     [HttpPatch("{id}")]
 
     public IActionResult Patch(int id, Professor professor) {
             
-      var prof = _context.Professores.AsNoTracking().FirstOrDefault(a => a.Id == id);
+      var prof = _repo.GetProfessorById(id, false);
       if (prof == null ) return BadRequest("Professor não existe");
 
-      _context.Update(professor);
-      _context.SaveChanges();
-       return Ok(professor);
+      _repo.Update(professor);
+      if (_repo.SaveChanges()){
+        return Ok(professor);
+      }
+      return BadRequest("Professor não atualizado");
     }
 
     [HttpDelete("{id}")]
 
     public IActionResult Delete(int id) {
             
-      var professor = _context.Professores.FirstOrDefault(a => a.Id == id);
+      var professor = _repo.GetProfessorById(id);
       if (professor == null ) return BadRequest("Professor não existe");
 
-      _context.Remove(professor);
-      _context.SaveChanges();
+      _repo.Delete(professor);
+      if (_repo.SaveChanges()){
         return Ok("Professor Apagado");
+      }
+      return BadRequest("Professor não apagado");
       }     
     }
 }
