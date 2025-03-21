@@ -36,6 +36,8 @@ namespace SmartSchool.WebAPI
             services.AddScoped<IRepository, Repository>();  //O IRepository vai ser uma instância do Repository pelo Scoped, ou seja,
                                                                                                                         //  a cada vez que uma requisição for feita uma instância do repository vai ser criada
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());  // Vai procurar quem está herdando de profile, para fazer o mapeamento entre os DTOs e os dominios(models)
+
             services.AddControllers()
                     .AddNewtonsoftJson(
                         opt => opt.SerializerSettings.ReferenceLoopHandling = 
