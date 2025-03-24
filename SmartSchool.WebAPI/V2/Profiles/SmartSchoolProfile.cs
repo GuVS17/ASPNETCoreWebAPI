@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using SmartSchool.WebAPI.Dtos;
 using SmartSchool.WebAPI.models;
+using SmartSchool.WebAPI.V1.Dtos;
 
 namespace SmartSchool.WebAPI.Helpers
 {
-    public class SmartSchoolProfile : Profile
+    public class SmartSchoolProfilev2 : Profile
     {
-        public SmartSchoolProfile()
+        public SmartSchoolProfilev2()
         {
             CreateMap<Aluno, AlunoDto>()      //Toda vez que trabalhar com o Aluno, vai mapear com o AlunoDto
                 .ForMember(
