@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SmartSchool.WebAPI.Helpers;
 using SmartSchool.WebAPI.models;
 
 namespace SmartSchool.WebAPI.data
@@ -15,13 +16,15 @@ namespace SmartSchool.WebAPI.data
         bool SaveChanges();
 
         // ALUNOS 
-        Aluno[] GetAllAlunos(bool includeProfessor = false);  
+        Task<PageList<Aluno>> GetAllAlunosAsync(PageParams pageParams, bool includeProfessor = false);   
+        IEnumerable<Aluno> GetAllAlunos(bool includeProfessor = false);
         Aluno[] GetAllAlunosByDisciplinaId(int DisciplinaId, bool includeProfessor = false);
         Aluno GetAlunosById(int alunoId, bool includeProfessor = false);
 
 
         // PROFESSORES
-        Professor[] GetAllProfessores(bool includeAlunos = false);
+        public Task<PageList<Professor>> GetAllProfessoresAsync(PageParamsProf pageParamsProf, bool includeAlunos = false);
+        IEnumerable<Professor> GetAllProfessores(bool includeAlunos = false);
         Professor[] GetAllProfessoresByDisciplinaId(int DisciplinaId, bool includeAlunos = false);
         Professor GetProfessorById(int professorId, bool includeAlunos = false);
     }
