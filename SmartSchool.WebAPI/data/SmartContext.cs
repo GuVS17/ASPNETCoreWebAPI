@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SmartSchool.WebAPI.models;
-using SQLitePCL;
 
 namespace SmartSchool.WebAPI.data
 {

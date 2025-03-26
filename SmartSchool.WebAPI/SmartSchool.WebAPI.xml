@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SmartSchool.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:SmartSchool.WebAPI.Migrations.initMySql">
+            <inheritdoc />
+        </member>
+        <member name="M:SmartSchool.WebAPI.Migrations.initMySql.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SmartSchool.WebAPI.Migrations.initMySql.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SmartSchool.WebAPI.Migrations.initMySql.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Get(SmartSchool.WebAPI.Helpers.PageParams)">
+            <summary>
+            Busca todos os Alunos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.GetById(System.Int32)">
+            <summary>
+            Busca o Aluno por Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Post(SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Inclui um novo Aluno
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Put(System.Int32,SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Atualiza os dados do Aluno
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Patch(System.Int32,SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Atualiza os dados do Aluno
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoController.Delete(System.Int32)">
+            <summary>
+            Apaga o Aluno 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Get(SmartSchool.WebAPI.Helpers.PageParamsProf)">
+            <summary>
+            Busca todos os Professores
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.GetById(System.Int32)">
+            <summary>
+            Busca o Professor pelo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Post(SmartSchool.WebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Inclui um novo Professor
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Put(System.Int32,SmartSchool.WebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Atualiza os dados do Professor
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns> <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Patch(System.Int32,SmartSchool.WebAPI.V1.Dtos.ProfessorRegistrarDto)">
+            <summary>
+            Atualiza os dados do Professor
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.ProfessorController.Delete(System.Int32)">
+            <summary>
+            Apaga o Professor
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoControllerv2.Get">
+            <summary>
+            Busca todos os Alunos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoControllerv2.GetById(System.Int32)">
+            <summary>
+            Busca o Aluno por Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoControllerv2.Post(SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Inclui um novo Aluno
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoControllerv2.Put(System.Int32,SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Atualiza os dados do Aluno
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoControllerv2.Patch(System.Int32,SmartSchool.WebAPI.V1.Dtos.AlunoRegistrarDto)">
+            <summary>
+            Atualiza os dados do Aluno
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SmartSchool.WebAPI.V1.Controllers.AlunoControllerv2.Delete(System.Int32)">
+            <summary>
+            Apaga o Aluno 
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -29,8 +29,10 @@ namespace SmartSchool.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SmartContext>(
-                context => context.UseSqlite(Configuration.GetConnectionString("Default")) // Conexão com appsetings.json
+            string connectionString = Configuration.GetConnectionString("MySqlConnection");   // Conexão com appsetings.json
+
+            services.AddDbContext<SmartContext>(options =>
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)) 
             );
 
             // services.AddSingleton<IRepository, Repository>();
