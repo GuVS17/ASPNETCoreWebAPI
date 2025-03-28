@@ -8,7 +8,7 @@ using SmartSchool.WebAPI.models;
 
 namespace SmartSchool.WebAPI.data
 {
-    public class Repository : IRepository  // Se o IRepository aqui ficar dando erro depois que digitar os métodos, só colocar os nomes iguais estão aqui, no arquivo IRepository
+    public class Repository : IRepository  // Se o IRepository aqui ficar dando erro depois que digitar os métodos, só colocar os nomes iguais estão aqui, no arquivo IRepository, ou vice-versa
     {
 
         private readonly SmartContext _context;
@@ -202,6 +202,25 @@ namespace SmartSchool.WebAPI.data
                         .Where(professor => professor.Id == professorId);
 
             return query.FirstOrDefault();
+        }
+
+        public Professor[] GetProfessoresByAlunoId(int alunoId, bool includeAlunos = false)  //Incluir Alunos dentro do professor?
+        {
+            IQueryable<Professor> query = _context.Professores;
+
+            if (includeAlunos)
+            {
+                query = query.Include(p => p.Disciplinas)
+                             .ThenInclude(d => d.AlunosDisciplinas)
+                             .ThenInclude(ad => ad.Aluno);
+            }
+
+            query = query.AsNoTracking()
+                        .OrderBy(a => a.Id)
+                        .Where(aluno => aluno.Disciplinas.Any(     //Dado o aluno que está em relação com Disciplinas, vai pegar o AlunosDisciplinas e pegar o id do aluno
+                            d => d.AlunosDisciplinas.Any(ad => ad.AlunoId == alunoId)));
+
+            return query.ToArray();
         }
     }
 }

@@ -34,7 +34,6 @@ namespace SmartSchool.WebAPI.V1.Controllers
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-
     public async Task<IActionResult> Get([FromQuery]PageParamsProf pageParamsProf)
     {
       var professores = await _repo.GetAllProfessoresAsync(pageParamsProf);
@@ -46,20 +45,12 @@ namespace SmartSchool.WebAPI.V1.Controllers
       return Ok(profResult);
     }
 
-    // [HttpGet("getRegister")]
-
-    // public IActionResult getRegister()   // PEGAR O OBJETO VAZIO
-    // {
-    //   return Ok(new ProfessorRegistrarDto());
-    // }
-
     /// <summary>
     /// Busca o Professor pelo Id
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpGet("{id}")]       // api/professor
-
     public IActionResult GetById(int id)
     {
       var professor = _repo.GetProfessorById(id, false);
@@ -70,13 +61,21 @@ namespace SmartSchool.WebAPI.V1.Controllers
       return Ok(professorDto);
     }
 
+    [HttpGet("ByAluno/{alunoId}")]       //Para colocar os professores de cada aluno em detalhes
+    public IActionResult GetByAlunoId(int alunoId)
+    {
+      var Professores = _repo.GetProfessoresByAlunoId(alunoId, true);        //
+      if (Professores == null) return BadRequest("Professores não encontrados");
+
+      return Ok(_mapper.Map<IEnumerable<ProfessorDto>>(Professores));
+    }
+
     /// <summary>
     /// Inclui um novo Professor
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
     [HttpPost]
-
     public IActionResult Post(ProfessorRegistrarDto model)
     {
 
@@ -102,7 +101,6 @@ namespace SmartSchool.WebAPI.V1.Controllers
     /// <param name="model"></param>
     /// <returns></returns>
     [HttpPut("{id}")]
-
     public IActionResult Put(int id, ProfessorRegistrarDto model)
     {
 
@@ -127,7 +125,6 @@ namespace SmartSchool.WebAPI.V1.Controllers
     /// <returns></returns>
 
     [HttpPatch("{id}")]
-
     public IActionResult Patch(int id, ProfessorRegistrarDto model)
     {
 
@@ -150,7 +147,6 @@ namespace SmartSchool.WebAPI.V1.Controllers
     /// <param name="id"></param>
     /// <returns></returns>
     [HttpDelete("{id}")]
-
     public IActionResult Delete(int id)
     {
 
@@ -166,3 +162,11 @@ namespace SmartSchool.WebAPI.V1.Controllers
     }
   }
 }
+
+
+// [HttpGet("getRegister")]
+
+    // public IActionResult getRegister()   // PEGAR O OBJETO VAZIO
+    // {
+    //   return Ok(new ProfessorRegistrarDto());
+    // }

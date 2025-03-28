@@ -97,6 +97,8 @@ namespace SmartSchool.WebAPI
                 var xmlCommensFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);   //Combinando o xml com a pasta que vai ser criada
                 options.IncludeXmlComments(xmlCommensFullPath);
             });
+
+           services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,6 +112,7 @@ namespace SmartSchool.WebAPI
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseSwagger();
             app.UseSwaggerUI(options =>
