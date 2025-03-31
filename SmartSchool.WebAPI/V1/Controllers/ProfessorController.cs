@@ -61,7 +61,7 @@ namespace SmartSchool.WebAPI.V1.Controllers
       return Ok(professorDto);
     }
 
-    [HttpGet("ByAluno/{alunoId}")]       //Para colocar os professores de cada aluno em detalhes
+    [HttpGet("byaluno/{alunoId}")]       //Para colocar os professores de cada aluno em detalhes
     public IActionResult GetByAlunoId(int alunoId)
     {
       var Professores = _repo.GetProfessoresByAlunoId(alunoId, true);        //

@@ -56,7 +56,7 @@
           <td>{{aluno.telefone}}</td>
           <td>
             <div class="btn-group">
-              <button (click)="openModal(template, aluno.id)" *ngIf="aluno.ativo" class="btn btn-sm btn-outline-primary">Professores</button>       <!--Se o aluno não tiver ativo, não vai aparecer os Professores-->
+              <button (click)="openModal(template, aluno.id)" *ngIf="aluno.ativo" class="btn btn-sm btn-outline-primary">Professores</button>       <!--Se o aluno tiver ativo, vai aparecer os Professores-->
               <button
                class="btn btn-sm"
                [ngClass]="{'btn-outline-danger': aluno.ativo, 'btn-success': !aluno.ativo }"
@@ -75,7 +75,7 @@
 <ng-template #template>
   <div class="modal-body" >     <!--quando chamar o close modal do professores-alunos ele vai emitir o evento e chamar o parametro que tá sendo passado,
     Aqui é o closeModal()-->
-     <app-professores-alunos (closeModal)="closeModal()" [professores]="profsAlunos"></app-professores-alunos>
+     <app-alunos-professores (closeModal)="closeModal()" [professores]="profsAlunos"></app-alunos-professores>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn pull-right" aria-label="Close"

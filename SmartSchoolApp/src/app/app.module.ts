@@ -16,7 +16,9 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfessoresComponent } from './components/professores/professores.component';
 import { provideHttpClient } from '@angular/common/http';
-import { ProfessoresAlunosComponent } from './components/alunos/professores-alunos/professores-alunos.component';
+import { AlunosProfessoresComponent} from './components/alunos/alunos-professores/alunos-professores.component';
+import { ProfessoresAlunosComponent } from './components/professores/professores-alunos/professores-alunos.component';
+import { ProfessorDetalheComponent } from './components/professores/professor-detalhe/professor-detalhe.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { ProfessoresAlunosComponent } from './components/alunos/professores-alun
     PerfilComponent,
     DashboardComponent,
     ProfessoresComponent,
-    ProfessoresAlunosComponent
+    AlunosProfessoresComponent,
+    ProfessoresAlunosComponent,
+    ProfessorDetalheComponent
   ],
   imports: [
     BrowserModule,

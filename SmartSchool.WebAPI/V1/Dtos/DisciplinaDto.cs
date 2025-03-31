@@ -18,7 +18,8 @@ namespace SmartSchool.WebAPI.V1.Dtos
     public int ProfessorId { get; set; }
     public ProfessorDto Professor { get; set; }
     public int CursoId { get; set; }     
-    public CursoDto Curso { get; set; }    
+    public CursoDto Curso { get; set; }
+    public IEnumerable<AlunoDto> Alunos { get; set; }
     public IEnumerable<AlunoDisciplina> AlunosDisciplinas  { get; set; }
     }
 }

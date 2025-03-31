@@ -81,7 +81,7 @@ export class AlunosComponent implements OnInit, OnDestroy {
 
   trocarEstado(aluno: Aluno) {
     this.alunoService
-      .trocarEstado(aluno.id, !aluno.ativo)
+      .trocarEstado(aluno.id, !aluno.ativo) // O aluno.ativo é o valor atual do aluno, e o !aluno.ativo inverte o valor
       .pipe(takeUntil(this.unsubscriber))
       .subscribe({
         next: () => {
@@ -138,7 +138,6 @@ export class AlunosComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (alunos: Aluno[]) => {
           this.alunos = alunos; //"alunos está sendo carregado pelo getAll, que está em alunos.services"
-
           if (alunoId > 0) {
             {
               this.alunoSelect(alunoId);
@@ -161,7 +160,7 @@ export class AlunosComponent implements OnInit, OnDestroy {
     this.alunoService.getById(alunoId).subscribe({
       next: (alunoReturn) => {
         this.alunoSelecionado = alunoReturn;
-        this.toastr.success('Alunos carregados! ');
+        this.toastr.success('Alunos carregados!');
         this.alunoForm.patchValue(this.alunoSelecionado);
       },
       error: (error) => {

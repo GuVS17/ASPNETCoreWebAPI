@@ -5,12 +5,12 @@ import { Disciplina } from '../../../models/Disciplina';
 import { Util } from '../../../util/util';
 
 @Component({
-  selector: 'app-professores-alunos',
-  templateUrl: './professores-alunos.component.html',
-  styleUrls: ['./professores-alunos.component.css'],
+  selector: 'app-alunos-professores',
+  templateUrl: './alunos-professores.component.html',
+  styleUrls: ['./alunos-professores.component.css'],
   standalone: false
 })
-export class ProfessoresAlunosComponent implements OnInit {
+export class AlunosProfessoresComponent implements OnInit {
 
   @Input() public professores: Professor[];
   @Output() closeModal = new EventEmitter();            //emite um evento chamando a função pai, no caso alunos.components
