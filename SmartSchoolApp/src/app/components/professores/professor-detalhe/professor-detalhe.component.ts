@@ -64,7 +64,7 @@ export class ProfessorDetalheComponent implements OnInit {
   }
 
   carregarProfessor() {
-    const profId = +(this.route.snapshot.paramMap.get('id') ?? '00');
+    const profId = Number(this.route.snapshot.paramMap.get('id')) ;
     this.professorService
       .getById(profId)
       .pipe(takeUntil(this.unsubscriber))

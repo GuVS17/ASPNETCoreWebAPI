@@ -85,7 +85,7 @@ namespace SmartSchool.WebAPI.data
             return await PageList<Aluno>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);      //Onde o primeiro número é o da página e o segundo é a quantidade de itens na página 
         }
 
-        public Aluno[] GetAllAlunosByDisciplinaId(int DisciplinaId, bool includeProfessor = false)
+        public async Task<Aluno[]> GetAllAlunosByDisciplinaIdAsync(int DisciplinaId, bool includeProfessor = false)
         {
             IQueryable<Aluno> query = _context.Alunos;
 
@@ -100,7 +100,7 @@ namespace SmartSchool.WebAPI.data
                         .OrderBy(a => a.Id)
                         .Where(aluno => aluno.AlunosDisciplinas.Any(ad => ad.DisciplinaId == DisciplinaId));
 
-            return query.ToArray();
+            return await query.ToArrayAsync();
         }
 
         public Aluno GetAlunosById(int alunoId, bool includeProfessor = false)

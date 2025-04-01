@@ -11,6 +11,7 @@ import { ProfessorService } from '../../services/professor.service';
 import { Aluno } from '../../models/Aluno';
 import { Professor } from '../../models/Professor';
 import { Observable } from 'rxjs';
+import { PaginatedResult, Pagination } from '../../models/Pagination';
 
 @Component({
   selector: 'app-alunos',
@@ -32,6 +33,7 @@ export class AlunosComponent implements OnInit, OnDestroy {
   public aluno: Aluno;
   public msnDeleteAluno!: string;
   public modeSave: 'post' | 'patch' = 'post';
+  pagination: Pagination;
 
   constructor(
     private alunoService: AlunoService,
@@ -46,6 +48,7 @@ export class AlunosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.pagination = { currentPage: 1, itemsPerPage: 5,} as Pagination; // Inicializa a paginação com valores padrão
     this.carregarAlunos();
   }
 
@@ -75,7 +78,7 @@ export class AlunosComponent implements OnInit, OnDestroy {
       nome: ['', Validators.required],
       sobrenome: ['', Validators.required],
       telefone: ['', Validators.required],
-      ativo: []                                      //Foi colocado aqui pro código validar o campo, porque estava desativando quando clicava em enviar
+      ativo: [], //Foi colocado aqui pro código validar o campo, porque estava desativando quando clicava em enviar
     });
   }
 
@@ -85,7 +88,6 @@ export class AlunosComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscriber))
       .subscribe({
         next: () => {
-
           this.carregarAlunos();
           this.toastr.success('Aluno salvo com sucesso!');
         },
@@ -133,15 +135,16 @@ export class AlunosComponent implements OnInit, OnDestroy {
 
     this.spinner.show();
     this.alunoService
-      .getAll()
+      .getAll(this.pagination.currentPage, this.pagination.itemsPerPage) // O getAll está pegando os alunos do serviço
       .pipe(takeUntil(this.unsubscriber))
       .subscribe({
-        next: (alunos: Aluno[]) => {
-          this.alunos = alunos; //"alunos está sendo carregado pelo getAll, que está em alunos.services"
+        next: (alunos: PaginatedResult<Aluno[]>) => {
+          this.alunos = alunos.result; //"alunos está sendo carregado pelo getAll, que está em alunos.services"
+          this.pagination = alunos.pagination; // A paginação está sendo carregada pelo getAll, que está em alunos.services
+
+
           if (alunoId > 0) {
-            {
               this.alunoSelect(alunoId);
-            }
           }
 
           this.toastr.success('Alunos foram carregados com Sucesso!');
@@ -153,6 +156,11 @@ export class AlunosComponent implements OnInit, OnDestroy {
         },
         complete: () => this.spinner.hide(),
       });
+  }
+
+  pageChanged(event: any): void {
+    this.pagination.currentPage=event.page;
+    this.carregarAlunos();
   }
 
   alunoSelect(alunoId: number) {

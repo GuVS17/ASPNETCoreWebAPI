@@ -71,6 +71,15 @@ namespace SmartSchool.WebAPI.V1.Controllers
       return Ok(alunoDto);
     }
 
+    // api/aluno/ByDisciplina/{id}
+    [HttpGet("ByDisciplina/{id}")]      
+    public async Task<IActionResult> GetByDisciplinaId(int id)       
+    {
+      var result = await _repo.GetAllAlunosByDisciplinaIdAsync(id, false);
+
+      return Ok(result);
+    }
+
     /// <summary>
     /// Inclui um novo Aluno
     /// </summary>

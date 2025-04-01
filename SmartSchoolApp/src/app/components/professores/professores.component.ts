@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, DoCheck, Input, OnInit, SimpleChanges} from '@angular/core';
 import { Util } from '../../util/util';
 import { Disciplina } from '../../models/Disciplina';
 import { Professor } from '../../models/Professor';
@@ -12,10 +12,9 @@ import { Router } from '@angular/router';
   selector: 'app-professores',
   templateUrl: './professores.component.html',
   styleUrls: ['./professores.component.css'],
-  standalone: false
+  standalone: false,
 })
 export class ProfessoresComponent implements OnInit {
-
   public titulo = 'Professores';
   public professorSelecionado: Professor;
   private unsubscriber = new Subject<void>();
@@ -26,20 +25,28 @@ export class ProfessoresComponent implements OnInit {
     private router: Router,
     private professorService: ProfessorService,
     private toastr: ToastrService,
-    private spinner: NgxSpinnerService) {}
+    private spinner: NgxSpinnerService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
 
   carregarProfessores() {
     this.spinner.show();
-    this.professorService.getAll()
+    this.professorService
+      .getAll()
       .pipe(takeUntil(this.unsubscriber))
-      .subscribe((professores: Professor[]) => {
-        this.professores = professores;
-        this.toastr.success('Professores foram carregado com Sucesso!');
-      }, (error: any) => {
-        this.toastr.error('Professores não carregados!');
-        console.log(error);
-      }, () => this.spinner.hide()
-    );
+      .subscribe({
+        next: (professores: Professor[]) => {
+          this.professores = professores;
+          this.cdr.detectChanges(); // Detecta mudanças no componente
+          this.toastr.success('Professores foram carregados com Sucesso!');
+        },
+        error: (error: any) => {
+          this.toastr.error('Professores não carregados!');
+          console.log(error);
+        },
+        complete: () => this.spinner.hide(),
+      });
   }
 
   ngOnInit() {
@@ -54,5 +61,6 @@ export class ProfessoresComponent implements OnInit {
   disciplinaConcat(disciplinas: Disciplina[]) {
     return Util.nomeConcat(disciplinas);
   }
+
 
 }

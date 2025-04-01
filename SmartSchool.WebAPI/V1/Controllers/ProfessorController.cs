@@ -53,7 +53,7 @@ namespace SmartSchool.WebAPI.V1.Controllers
     [HttpGet("{id}")]       // api/professor
     public IActionResult GetById(int id)
     {
-      var professor = _repo.GetProfessorById(id, false);
+      var professor = _repo.GetProfessorById(id, true);
       if (professor == null) return BadRequest("Professor não existe");
 
       var professorDto = _mapper.Map<ProfessorDto>(professor);

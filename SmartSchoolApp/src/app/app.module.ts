@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxSpinnerModule} from 'ngx-spinner';
 import { NavComponent } from './components/shared/nav/nav.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -37,6 +38,7 @@ import { ProfessorDetalheComponent } from './components/professores/professor-de
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    PaginationModule.forRoot(),
     ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
